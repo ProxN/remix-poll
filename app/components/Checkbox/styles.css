@@ -1,0 +1,64 @@
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Hide checkbox visually but remain accessible to screen readers.
+ Source: https://polished.js.org/docs/#hidevisually */
+.checkbox-input {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.checkbox-custom {
+  border: 1px solid transparent;
+  border-color: var(--color-border-2);
+  background-color: #f8f9fa;
+  height: 1.6rem;
+  width: 1.6rem;
+  margin-right: 0.8rem;
+  border-radius: 0.2rem;
+  transition: border-color 200ms var(--transition);
+}
+
+.checkbox-icon {
+  display: none;
+}
+
+.checkbox-label {
+  font-size: inherit;
+  color: inherit;
+}
+
+.checkbox-wrapper:hover > .checkbox-input:not(:disabled) ~ .checkbox-custom {
+  border-color: var(--color-primary-6);
+}
+
+.checkbox-wrapper .checkbox-input:checked ~ .checkbox-custom {
+  background-color: var(--color-primary-2);
+  border-color: transparent;
+  color: #fff;
+}
+
+.checkbox-input:checked ~ .checkbox-custom > .checkbox-icon {
+  display: flex;
+}
+
+.checkbox-input:checked ~ .checkbox-icon {
+  display: flex;
+}
+
+.checkbox-wrapper .checkbox-input:disabled ~ .checkbox-custom {
+  background-color: #f1f3f5;
+  cursor: not-allowed;
+}

@@ -1,0 +1,37 @@
+.input {
+  width: 100%;
+  min-width: 0px;
+  outline: none;
+  font-family: inherit;
+  color: inherit;
+  user-select: none;
+  appearance: none;
+  line-height: 1.4;
+  font-size: 1.4rem;
+  padding: 0 1.2rem;
+  height: 3.8rem;
+  background-color: inherit;
+  border: 1px solid var(--color-border-1);
+  border-radius: 0.2rem;
+  transition-property: border-color, background-color;
+  transition-duration: 300ms;
+  transition-timing-function: var(--transition);
+}
+
+.input:not(:focus):not(:disabled):hover {
+  border-color: var(--color-border-2);
+}
+
+.input:focus {
+  border-color: #b197fc;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.36);
+}
+
+.textarea {
+  resize: none;
+  height: auto;
+  padding: 0.6rem 1.2rem;
+}

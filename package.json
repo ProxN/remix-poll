@@ -5,16 +5,18 @@
   "license": "",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev",
+    "dev": "node -r dotenv/config ./node_modules/@remix-run/dev/cli.js",
     "postinstall": "remix setup node",
     "start": "remix-serve build"
   },
   "dependencies": {
     "@remix-run/react": "^1.1.1",
+    "@remix-run/serve": "^1.1.1",
+    "@supabase/supabase-js": "^1.28.5",
+    "dotenv": "^10.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "remix": "^1.1.1",
-    "@remix-run/serve": "^1.1.1"
+    "remix": "^1.1.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.1.1",
