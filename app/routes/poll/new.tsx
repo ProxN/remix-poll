@@ -2,24 +2,11 @@ import { LinksFunction, ActionFunction, redirect } from 'remix';
 import { useActionData } from 'remix';
 import { Input, TextArea } from '../../components/Input';
 import { Button } from '~/components/Button';
+import { PageLayout } from '~/components/PageLayout';
 import { Checkbox, links as checkboxLinks } from '~/components/Checkbox';
 import { supebase } from '~/utils/supabase.server';
+import { OptionData, PollData } from '~/types';
 import pollStyles from '~/styles/poll.css';
-
-type PollData = {
-  id?: string;
-  question?: string;
-  created_at?: string;
-  updated_at?: string;
-};
-
-type OptionData = {
-  id?: string;
-  poll_id?: string;
-  value?: string;
-  created_at?: string;
-  updated_at?: string;
-};
 
 export const links: LinksFunction = () => {
   return [...checkboxLinks(), { rel: 'stylesheet', href: pollStyles }];
@@ -50,6 +37,7 @@ type ActionData = {
   fields: {
     question: string;
     options: string[];
+    checking: string;
   };
   formError?: string;
 };
@@ -61,6 +49,7 @@ export let action: ActionFunction = async ({
   const fields = {
     question: form.get('question') as string,
     options: form.getAll('option') as string[],
+    checking: form.get('checking') as string,
   };
 
   const fieldsErrors = {
@@ -96,55 +85,50 @@ const NewPollRoute = () => {
   const actionData = useActionData<ActionData>();
 
   return (
-    <section className="section">
-      <div className="container">
-        <h1 className="heading">
-          Remix <span>Poll</span>
-        </h1>
-        <div className="content">
-          <form method="post" className="form">
-            {actionData?.formError && (
-              <label className="form-error">{actionData?.formError}</label>
-            )}
-            <TextArea
-              rows={4}
-              name="question"
-              defaultValue={actionData?.fields?.question}
-              placeholder="Type your question here"
+    <PageLayout>
+      <div className="content">
+        <form method="post" className="form">
+          {actionData?.formError && (
+            <label className="form-error">{actionData?.formError}</label>
+          )}
+          <TextArea
+            rows={4}
+            name="question"
+            defaultValue={actionData?.fields?.question}
+            placeholder="Type your question here"
+          />
+          {actionData?.fieldsErrors?.question && (
+            <label className="form-error">
+              {actionData?.fieldsErrors?.question}
+            </label>
+          )}
+          {[...Array.from(Array(3))].map((_, i) => (
+            <Input
+              key={`option-${i}`}
+              placeholder="Poll option"
+              name="option"
+              defaultValue={actionData?.fields.options[i]}
             />
-            {actionData?.fieldsErrors?.question && (
-              <label className="form-error">
-                {actionData?.fieldsErrors?.question}
-              </label>
-            )}
-            {[...Array.from(Array(3))].map((_, i) => (
-              <Input
-                key={`option-${i}`}
-                placeholder="Poll option"
-                name="option"
-                defaultValue={actionData?.fields.options[i]}
-              />
-            ))}
-            {actionData?.fieldsErrors?.option && (
-              <label className="form-error">
-                {actionData?.fieldsErrors?.option}
-              </label>
-            )}
-            <div className="form-flex">
-              <Checkbox name="checking" id="checking">
-                Duplication checking
-              </Checkbox>
-              <Button variant="primary">Add option</Button>
-            </div>
-            <div className="form-footer">
-              <Button type="submit" variant="primary">
-                Create Poll
-              </Button>
-            </div>
-          </form>
-        </div>
+          ))}
+          {actionData?.fieldsErrors?.option && (
+            <label className="form-error">
+              {actionData?.fieldsErrors?.option}
+            </label>
+          )}
+          <div className="form-flex">
+            <Checkbox value="true" name="checking" id="checking">
+              Duplication checking
+            </Checkbox>
+            <Button variant="primary">Add option</Button>
+          </div>
+          <div className="form-footer">
+            <Button type="submit" variant="primary">
+              Create Poll
+            </Button>
+          </div>
+        </form>
       </div>
-    </section>
+    </PageLayout>
   );
 };
 

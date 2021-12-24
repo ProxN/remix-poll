@@ -1,0 +1,17 @@
+.question {
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.poll-options {
+  margin-bottom: 2rem;
+}
+
+.poll-options > label:not(:last-child) {
+  margin-bottom: 1.4rem;
+}
+
+.actions button:first-child {
+  margin-right: 1.4rem;
+}

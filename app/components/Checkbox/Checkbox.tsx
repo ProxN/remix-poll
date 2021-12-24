@@ -12,6 +12,7 @@ interface CheckboxProps extends HTMLInputProps {
   isDisabled?: boolean;
   defaultChecked?: boolean;
   value?: string | number;
+  type?: 'checkbox' | 'radio';
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -25,6 +26,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   children,
   isChecked = false,
   isDisabled = false,
+  type = 'checkbox',
   id,
   ...rest
 }) => {
@@ -32,7 +34,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     <label className="checkbox-wrapper" htmlFor={id}>
       <input
         className="checkbox-input"
-        type="checkbox"
+        type={type}
         disabled={isDisabled}
         checked={isChecked}
         onChange={() => {}}

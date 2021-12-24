@@ -44,10 +44,10 @@ const Layout: React.FC = ({ children }) => {
     <>
       <header className="header">
         <div className="header__container">
-          <div className="header__search">
+          {/* <div className="header__search">
             <Input placeholder="Search for polls" />
-          </div>
-          <Link to=".">
+          </div> */}
+          <Link to="/poll/new">
             <Button variant="primary">Create a poll</Button>
           </Link>
         </div>
